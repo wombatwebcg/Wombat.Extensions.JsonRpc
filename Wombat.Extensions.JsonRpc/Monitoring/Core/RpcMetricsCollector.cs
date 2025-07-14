@@ -166,12 +166,18 @@ namespace Wombat.Extensions.JsonRpc.Monitoring.Core
 
             if (connected)
             {
-                Interlocked.Increment(ref transportMetrics.TotalConnections);
-                Interlocked.Increment(ref transportMetrics.ActiveConnections);
+                lock (transportMetrics)
+                {
+                    transportMetrics.TotalConnections++;
+                    transportMetrics.ActiveConnections++;
+                }
             }
             else
             {
-                Interlocked.Decrement(ref transportMetrics.ActiveConnections);
+                lock (transportMetrics)
+                {
+                    transportMetrics.ActiveConnections--;
+                }
             }
 
             _logger?.LogDebug("记录连接指标: {ConnectionId}, 连接状态: {Connected}, 传输类型: {TransportType}", 
@@ -307,10 +313,10 @@ namespace Wombat.Extensions.JsonRpc.Monitoring.Core
                 _activeRequests.Clear();
                 _methodMetrics.Clear();
                 _transportMetrics.Clear();
-                _responseTimes.Clear();
-                _qpsBuffer.Clear();
-                _batchSizes.Clear();
-                _compressionRatios.Clear();
+                while (_responseTimes.TryDequeue(out _)) { }
+                while (_qpsBuffer.TryDequeue(out _)) { }
+                while (_batchSizes.TryDequeue(out _)) { }
+                while (_compressionRatios.TryDequeue(out _)) { }
 
                 while (_metricsHistory.TryDequeue(out _)) { }
 
@@ -342,15 +348,18 @@ namespace Wombat.Extensions.JsonRpc.Monitoring.Core
                 MinResponseTime = double.MaxValue
             });
 
-            Interlocked.Increment(ref methodMetrics.CallCount);
-            
-            if (request.Success)
+            lock (methodMetrics)
             {
-                Interlocked.Increment(ref methodMetrics.SuccessCount);
-            }
-            else
-            {
-                Interlocked.Increment(ref methodMetrics.FailureCount);
+                methodMetrics.CallCount++;
+                
+                if (request.Success)
+                {
+                    methodMetrics.SuccessCount++;
+                }
+                else
+                {
+                    methodMetrics.FailureCount++;
+                }
             }
 
             // 更新响应时间统计

@@ -418,7 +418,7 @@ namespace Wombat.Extensions.JsonRpc.Resilience.Failover
                     return SelectByRoundRobin(endpoints);
 
                 case EndpointSelectionStrategy.Random:
-                    return endpoints[Random.Shared.Next(endpoints.Count)];
+                    return endpoints[new Random().Next(endpoints.Count)];
 
                 case EndpointSelectionStrategy.HealthScore:
                     return SelectByHealthScore(endpoints);
@@ -433,7 +433,7 @@ namespace Wombat.Extensions.JsonRpc.Resilience.Failover
             var totalWeight = endpoints.Sum(e => e.Weight);
             if (totalWeight <= 0) return endpoints.FirstOrDefault();
 
-            var random = Random.Shared.Next(totalWeight);
+            var random = new Random().Next(totalWeight);
             var currentWeight = 0;
 
             foreach (var endpoint in endpoints)

@@ -19,7 +19,7 @@ namespace Wombat.Extensions.JsonRpc.Contracts
         /// <summary>
         /// 验证参数值
         /// </summary>
-        public override bool IsValid(object? value)
+        public override bool IsValid(object value)
         {
             return value != null;
         }
@@ -63,7 +63,7 @@ namespace Wombat.Extensions.JsonRpc.Contracts
         /// <summary>
         /// 验证参数值
         /// </summary>
-        public override bool IsValid(object? value)
+        public override bool IsValid(object value)
         {
             if (value == null) return true; // null值由其他特性处理
 
@@ -126,7 +126,7 @@ namespace Wombat.Extensions.JsonRpc.Contracts
         /// <summary>
         /// 验证参数值
         /// </summary>
-        public override bool IsValid(object? value)
+        public override bool IsValid(object value)
         {
             if (value == null) return true; // null值由其他特性处理
 
@@ -167,7 +167,7 @@ namespace Wombat.Extensions.JsonRpc.Contracts
         /// <summary>
         /// 验证参数值
         /// </summary>
-        public override bool IsValid(object? value)
+        public override bool IsValid(object value)
         {
             if (value == null) return true; // null值由其他特性处理
 
@@ -215,7 +215,7 @@ namespace Wombat.Extensions.JsonRpc.Contracts
         /// <summary>
         /// 验证参数值
         /// </summary>
-        public override bool IsValid(object? value)
+        public override bool IsValid(object value)
         {
             try
             {

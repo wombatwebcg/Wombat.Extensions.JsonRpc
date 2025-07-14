@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Wombat.Extensions.JsonRpc.Monitoring.Core;
+using System.Runtime;
 
 namespace Wombat.Extensions.JsonRpc.Monitoring.Diagnostics
 {
@@ -98,7 +99,7 @@ namespace Wombat.Extensions.JsonRpc.Monitoring.Diagnostics
                 var snapshot = new RpcDiagnosticSnapshot
                 {
                     Timestamp = DateTime.UtcNow,
-                    ProcessId = Environment.ProcessId,
+                    ProcessId = Process.GetCurrentProcess().Id,
                     MachineName = Environment.MachineName,
                     ThreadCount = Process.GetCurrentProcess().Threads.Count,
                     HandleCount = Process.GetCurrentProcess().HandleCount,

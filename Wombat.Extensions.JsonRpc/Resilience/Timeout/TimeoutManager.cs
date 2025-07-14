@@ -447,7 +447,7 @@ namespace Wombat.Extensions.JsonRpc.Resilience.Timeout
             if (userToken.IsCancellationRequested)
                 return userToken;
 
-            if (timeout == Timeout.InfiniteTimeSpan)
+            if (timeout == TimeSpan.FromMilliseconds(-1))
                 return userToken;
 
             using var timeoutCts = new CancellationTokenSource(timeout);

@@ -109,6 +109,16 @@ namespace Wombat.Extensions.JsonRpc.Monitoring.Core
         /// 异常列表
         /// </summary>
         public List<string> Anomalies { get; set; } = new List<string>();
+
+        /// <summary>
+        /// 报告类型（如Scheduled/Manual等）
+        /// </summary>
+        public string ReportType { get; set; }
+
+        /// <summary>
+        /// 是否存在异常
+        /// </summary>
+        public bool HasAnomalies { get; set; }
     }
 
     /// <summary>
@@ -170,6 +180,56 @@ namespace Wombat.Extensions.JsonRpc.Monitoring.Core
         /// 系统资源使用情况
         /// </summary>
         public SystemResourceUsage ResourceUsage { get; set; } = new SystemResourceUsage();
+
+        /// <summary>
+        /// 总连接数
+        /// </summary>
+        public long TotalConnections { get; set; }
+
+        /// <summary>
+        /// 内存使用量（字节）
+        /// </summary>
+        public long MemoryUsage { get; set; }
+
+        /// <summary>
+        /// CPU使用率（百分比）
+        /// </summary>
+        public double CpuUsage { get; set; }
+
+        /// <summary>
+        /// 线程数
+        /// </summary>
+        public int ThreadCount { get; set; }
+
+        /// <summary>
+        /// 95%分位响应时间
+        /// </summary>
+        public double P95ResponseTime { get; set; }
+
+        /// <summary>
+        /// 99%分位响应时间
+        /// </summary>
+        public double P99ResponseTime { get; set; }
+
+        /// <summary>
+        /// 峰值QPS
+        /// </summary>
+        public double PeakQps { get; set; }
+
+        /// <summary>
+        /// 错误率（百分比）
+        /// </summary>
+        public double ErrorRate { get; set; }
+
+        /// <summary>
+        /// 平均批处理大小
+        /// </summary>
+        public double AverageBatchSize { get; set; }
+
+        /// <summary>
+        /// 平均压缩率
+        /// </summary>
+        public double AverageCompressionRatio { get; set; }
     }
 
     /// <summary>
@@ -231,6 +291,26 @@ namespace Wombat.Extensions.JsonRpc.Monitoring.Core
         /// 当前QPS
         /// </summary>
         public double CurrentQps { get; set; }
+
+        /// <summary>
+        /// 调用次数
+        /// </summary>
+        public long CallCount { get; set; }
+
+        /// <summary>
+        /// 成功次数
+        /// </summary>
+        public long SuccessCount { get; set; }
+
+        /// <summary>
+        /// 失败次数
+        /// </summary>
+        public long FailureCount { get; set; }
+
+        /// <summary>
+        /// 最后一次调用时间
+        /// </summary>
+        public DateTime LastCallTime { get; set; }
     }
 
     /// <summary>
@@ -262,6 +342,21 @@ namespace Wombat.Extensions.JsonRpc.Monitoring.Core
         /// 平均连接时间
         /// </summary>
         public double AverageConnectionTime { get; set; }
+
+        /// <summary>
+        /// 已发送字节数
+        /// </summary>
+        public long BytesSent { get; set; }
+
+        /// <summary>
+        /// 已接收字节数
+        /// </summary>
+        public long BytesReceived { get; set; }
+
+        /// <summary>
+        /// 连接超时次数
+        /// </summary>
+        public long ConnectionTimeouts { get; set; }
     }
 
     /// <summary>

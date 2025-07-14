@@ -100,6 +100,21 @@ namespace Wombat.Extensions.JsonRpc.Middleware.Core
         public ServiceMetadata ServiceMetadata { get; set; }
 
         /// <summary>
+        /// 服务名称
+        /// </summary>
+        public string ServiceName { get; set; }
+
+        /// <summary>
+        /// 客户端ID
+        /// </summary>
+        public string ClientId { get; set; }
+
+        /// <summary>
+        /// 参数字典（用于参数名到值的映射）
+        /// </summary>
+        public Dictionary<string, object> Parameters { get; set; } = new Dictionary<string, object>();
+
+        /// <summary>
         /// 日志记录器
         /// </summary>
         public ILogger Logger { get; set; }

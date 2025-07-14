@@ -372,7 +372,11 @@ namespace Wombat.Extensions.JsonRpc.Middleware.Core
             
             foreach (var registration in _middlewares)
             {
-                pipeline._middlewares.Add(registration);
+                pipeline.Use(registration.MiddlewareInstance ?? 
+                    (IRpcMiddleware)Activator.CreateInstance(registration.MiddlewareType), 
+                    registration.Order, 
+                    registration.Enabled, 
+                    registration.Name);
             }
 
             return pipeline;

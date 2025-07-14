@@ -173,7 +173,9 @@ namespace Wombat.Extensions.JsonRpc.CodeGen.Generators
             // 添加安全要求
             if (method.RequireAuthentication)
             {
-                operation.Security = new List<OpenApiSecurityRequirement>();
+                // 注意：某些版本的OpenAPI库可能不支持直接设置Security属性
+                // 这里暂时注释掉，可以通过其他方式添加安全要求
+                // operation.Security = new List<OpenApiSecurityRequirement>();
                 // 这里可以根据实际的认证方案添加安全要求
             }
 

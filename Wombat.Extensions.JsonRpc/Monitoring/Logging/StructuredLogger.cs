@@ -79,7 +79,7 @@ namespace Wombat.Extensions.JsonRpc.Monitoring.Logging
                 CorrelationId = correlationId,
                 Parameters = parameters,
                 ThreadId = Environment.CurrentManagedThreadId,
-                ProcessId = Environment.ProcessId,
+                ProcessId = Process.GetCurrentProcess().Id,
                 MachineName = Environment.MachineName
             };
 
@@ -127,7 +127,7 @@ namespace Wombat.Extensions.JsonRpc.Monitoring.Logging
                 Success = success,
                 Result = result,
                 ThreadId = Environment.CurrentManagedThreadId,
-                ProcessId = Environment.ProcessId,
+                ProcessId = Process.GetCurrentProcess().Id,
                 MachineName = Environment.MachineName
             };
 
@@ -179,7 +179,7 @@ namespace Wombat.Extensions.JsonRpc.Monitoring.Logging
                 Success = false,
                 Exception = exception,
                 ThreadId = Environment.CurrentManagedThreadId,
-                ProcessId = Environment.ProcessId,
+                ProcessId = Process.GetCurrentProcess().Id,
                 MachineName = Environment.MachineName
             };
 
@@ -218,7 +218,7 @@ namespace Wombat.Extensions.JsonRpc.Monitoring.Logging
                 ClientPort = clientPort,
                 Connected = connected,
                 ThreadId = Environment.CurrentManagedThreadId,
-                ProcessId = Environment.ProcessId,
+                ProcessId = Process.GetCurrentProcess().Id,
                 MachineName = Environment.MachineName
             };
 
@@ -242,7 +242,7 @@ namespace Wombat.Extensions.JsonRpc.Monitoring.Logging
                 Timestamp = DateTime.UtcNow,
                 Metrics = metrics,
                 ThreadId = Environment.CurrentManagedThreadId,
-                ProcessId = Environment.ProcessId,
+                ProcessId = Process.GetCurrentProcess().Id,
                 MachineName = Environment.MachineName
             };
 
@@ -275,7 +275,7 @@ namespace Wombat.Extensions.JsonRpc.Monitoring.Logging
                 Properties = properties,
                 Exception = exception,
                 ThreadId = Environment.CurrentManagedThreadId,
-                ProcessId = Environment.ProcessId,
+                ProcessId = Process.GetCurrentProcess().Id,
                 MachineName = Environment.MachineName
             };
 
@@ -311,7 +311,7 @@ namespace Wombat.Extensions.JsonRpc.Monitoring.Logging
                 Exception = exception,
                 CorrelationId = correlationId,
                 ThreadId = Environment.CurrentManagedThreadId,
-                ProcessId = Environment.ProcessId,
+                ProcessId = Process.GetCurrentProcess().Id,
                 MachineName = Environment.MachineName
             };
 

@@ -32,7 +32,7 @@ namespace Wombat.Extensions.JsonRpc.Monitoring.Telemetry
             _activitySource = RpcActivitySource.Instance;
         }
 
-        public override async Task InvokeAsync(RpcMiddlewareContext context, RpcMiddlewareDelegate next)
+        public override async Task InvokeAsync(RpcMiddlewareContext context, Func<Task> next)
         {
             if (context == null) throw new ArgumentNullException(nameof(context));
             if (next == null) throw new ArgumentNullException(nameof(next));
@@ -59,7 +59,7 @@ namespace Wombat.Extensions.JsonRpc.Monitoring.Telemetry
                 await LogRequestStartAsync(context, requestId);
 
                 // 调用下一个中间件
-                await next(context);
+                await next();
 
                 result = context.Result;
                 
@@ -189,7 +189,7 @@ namespace Wombat.Extensions.JsonRpc.Monitoring.Telemetry
                     logData["SystemInfo"] = new
                     {
                         MachineName = Environment.MachineName,
-                        ProcessId = Environment.ProcessId,
+                        ProcessId = Process.GetCurrentProcess().Id,
                         ThreadId = Environment.CurrentManagedThreadId
                     };
                 }

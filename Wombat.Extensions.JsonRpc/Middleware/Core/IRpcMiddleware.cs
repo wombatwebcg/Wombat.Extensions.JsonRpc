@@ -37,50 +37,7 @@ namespace Wombat.Extensions.JsonRpc.Middleware.Core
         Task InvokeAsync(RpcMiddlewareContext context, Func<Task> next);
     }
 
-    /// <summary>
-    /// RPC中间件抽象基类
-    /// </summary>
-    public abstract class RpcMiddlewareBase : IRpcMiddleware
-    {
-        /// <summary>
-        /// 处理RPC请求
-        /// </summary>
-        /// <param name="context">中间件上下文</param>
-        /// <param name="next">下一个中间件</param>
-        /// <returns>处理结果</returns>
-        public abstract Task InvokeAsync(RpcMiddlewareContext context, Func<Task> next);
 
-        /// <summary>
-        /// 在请求处理前执行
-        /// </summary>
-        /// <param name="context">中间件上下文</param>
-        /// <returns>任务</returns>
-        protected virtual Task OnBeforeRequestAsync(RpcMiddlewareContext context)
-        {
-            return Task.CompletedTask;
-        }
-
-        /// <summary>
-        /// 在请求处理后执行
-        /// </summary>
-        /// <param name="context">中间件上下文</param>
-        /// <returns>任务</returns>
-        protected virtual Task OnAfterRequestAsync(RpcMiddlewareContext context)
-        {
-            return Task.CompletedTask;
-        }
-
-        /// <summary>
-        /// 在异常处理时执行
-        /// </summary>
-        /// <param name="context">中间件上下文</param>
-        /// <param name="exception">异常信息</param>
-        /// <returns>任务</returns>
-        protected virtual Task OnExceptionAsync(RpcMiddlewareContext context, Exception exception)
-        {
-            return Task.CompletedTask;
-        }
-    }
 
     /// <summary>
     /// 中间件执行顺序

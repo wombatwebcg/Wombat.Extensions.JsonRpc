@@ -21,9 +21,9 @@ namespace Wombat.Extensions.JsonRpc.Contracts
         public Type ServiceType { get; set; } = typeof(object);
 
         /// <summary>
-        /// 服务接口类型
+        /// 接口类型
         /// </summary>
-        public Type? InterfaceType { get; set; }
+        public Type InterfaceType { get; set; } // 允许为null
 
         /// <summary>
         /// 服务方法集合
@@ -33,12 +33,12 @@ namespace Wombat.Extensions.JsonRpc.Contracts
         /// <summary>
         /// 服务描述
         /// </summary>
-        public string? Description { get; set; }
+        public string Description { get; set; } // 允许为null
 
         /// <summary>
         /// 服务版本
         /// </summary>
-        public string? Version { get; set; }
+        public string Version { get; set; } // 允许为null
 
         /// <summary>
         /// 是否为单例服务
@@ -56,11 +56,26 @@ namespace Wombat.Extensions.JsonRpc.Contracts
         public Dictionary<string, string> Tags { get; set; } = new Dictionary<string, string>();
 
         /// <summary>
+        /// 是否需要身份验证（服务级别）
+        /// </summary>
+        public bool RequireAuthentication { get; set; }
+
+        /// <summary>
+        /// 是否需要授权（服务级别）
+        /// </summary>
+        public bool RequireAuthorization { get; set; }
+
+        /// <summary>
+        /// 服务所需角色（服务级别）
+        /// </summary>
+        public string[] RequiredRoles { get; set; } = Array.Empty<string>();
+
+        /// <summary>
         /// 获取方法元数据
         /// </summary>
         /// <param name="methodName">方法名</param>
         /// <returns>方法元数据</returns>
-        public MethodMetadata? GetMethod(string methodName)
+        public MethodMetadata GetMethod(string methodName)
         {
             foreach (var method in Methods)
             {
@@ -129,6 +144,16 @@ namespace Wombat.Extensions.JsonRpc.Contracts
         public bool RequireAuthentication { get; set; }
 
         /// <summary>
+        /// 是否需要授权（方法级别）
+        /// </summary>
+        public bool RequireAuthorization { get; set; }
+
+        /// <summary>
+        /// 方法所需角色（方法级别）
+        /// </summary>
+        public string[] RequiredRoles { get; set; } = Array.Empty<string>();
+
+        /// <summary>
         /// 方法超时时间（毫秒）
         /// </summary>
         public int TimeoutMs { get; set; } = 30000;
@@ -146,12 +171,12 @@ namespace Wombat.Extensions.JsonRpc.Contracts
         /// <summary>
         /// 方法描述
         /// </summary>
-        public string? Description { get; set; }
+        public string Description { get; set; } // 允许为null
 
         /// <summary>
         /// 方法版本
         /// </summary>
-        public string? Version { get; set; }
+        public string Version { get; set; } // 允许为null
 
         /// <summary>
         /// 是否启用参数验证
@@ -183,7 +208,7 @@ namespace Wombat.Extensions.JsonRpc.Contracts
         /// </summary>
         /// <param name="parameterName">参数名</param>
         /// <returns>参数元数据</returns>
-        public ParameterMetadata? GetParameter(string parameterName)
+        public ParameterMetadata GetParameter(string parameterName)
         {
             foreach (var param in Parameters)
             {
@@ -234,7 +259,7 @@ namespace Wombat.Extensions.JsonRpc.Contracts
         /// <summary>
         /// 默认值
         /// </summary>
-        public object? DefaultValue { get; set; }
+        public object DefaultValue { get; set; } // 允许为null
 
         /// <summary>
         /// 参数验证特性集合
@@ -244,7 +269,7 @@ namespace Wombat.Extensions.JsonRpc.Contracts
         /// <summary>
         /// 参数描述
         /// </summary>
-        public string? Description { get; set; }
+        public string Description { get; set; } // 允许为null
 
         /// <summary>
         /// 参数位置
@@ -266,7 +291,7 @@ namespace Wombat.Extensions.JsonRpc.Contracts
         /// </summary>
         /// <param name="value">参数值</param>
         /// <returns>验证结果</returns>
-        public ValidationResult ValidateValue(object? value)
+        public ValidationResult ValidateValue(object value)
         {
             var context = new ValidationContext(new object()) { MemberName = Name };
             

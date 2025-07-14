@@ -18,12 +18,12 @@ namespace Wombat.Extensions.JsonRpc.Contracts
         /// <summary>
         /// 参数名称
         /// </summary>
-        public string? ParameterName { get; }
+        public string ParameterName { get; } // 允许为null
 
         /// <summary>
         /// 方法名称
         /// </summary>
-        public string? MethodName { get; }
+        public string MethodName { get; } // 允许为null
 
         /// <summary>
         /// 构造函数
@@ -41,7 +41,7 @@ namespace Wombat.Extensions.JsonRpc.Contracts
         /// <param name="validationResults">验证结果集合</param>
         /// <param name="parameterName">参数名称</param>
         /// <param name="methodName">方法名称</param>
-        public RpcValidationException(IEnumerable<ValidationResult> validationResults, string? parameterName, string? methodName)
+        public RpcValidationException(IEnumerable<ValidationResult> validationResults, string parameterName, string methodName)
             : base(CreateMessage(validationResults, parameterName, methodName))
         {
             ValidationResults = validationResults?.ToArray() ?? Array.Empty<ValidationResult>();
@@ -64,7 +64,7 @@ namespace Wombat.Extensions.JsonRpc.Contracts
         /// <param name="validationResult">验证结果</param>
         /// <param name="parameterName">参数名称</param>
         /// <param name="methodName">方法名称</param>
-        public RpcValidationException(ValidationResult validationResult, string? parameterName, string? methodName)
+        public RpcValidationException(ValidationResult validationResult, string parameterName, string methodName)
             : this(new[] { validationResult }, parameterName, methodName)
         {
         }
@@ -97,7 +97,7 @@ namespace Wombat.Extensions.JsonRpc.Contracts
         /// <param name="parameterName">参数名称</param>
         /// <param name="methodName">方法名称</param>
         /// <returns>错误消息</returns>
-        private static string CreateMessage(IEnumerable<ValidationResult> validationResults, string? parameterName = null, string? methodName = null)
+        private static string CreateMessage(IEnumerable<ValidationResult> validationResults, string parameterName = null, string methodName = null)
         {
             var results = validationResults?.ToArray() ?? Array.Empty<ValidationResult>();
             
@@ -212,7 +212,7 @@ namespace Wombat.Extensions.JsonRpc.Contracts
         /// <param name="value">参数值</param>
         /// <param name="parameterMetadata">参数元数据</param>
         /// <returns>验证结果</returns>
-        public static ValidationResult ValidateParameter(object? value, ParameterMetadata parameterMetadata)
+        public static ValidationResult ValidateParameter(object value, ParameterMetadata parameterMetadata)
         {
             if (parameterMetadata == null)
                 return ValidationResult.Success!;
@@ -237,7 +237,7 @@ namespace Wombat.Extensions.JsonRpc.Contracts
         /// <param name="parameters">参数值数组</param>
         /// <param name="methodMetadata">方法元数据</param>
         /// <returns>验证结果集合</returns>
-        public static IEnumerable<ValidationResult> ValidateParameters(object?[] parameters, MethodMetadata methodMetadata)
+        public static IEnumerable<ValidationResult> ValidateParameters(object[] parameters, MethodMetadata methodMetadata)
         {
             if (methodMetadata == null || !methodMetadata.EnableParameterValidation)
                 yield break;
@@ -263,7 +263,7 @@ namespace Wombat.Extensions.JsonRpc.Contracts
         /// <param name="parameters">参数值数组</param>
         /// <param name="methodMetadata">方法元数据</param>
         /// <exception cref="RpcValidationException">参数验证失败时抛出</exception>
-        public static void ValidateParametersAndThrow(object?[] parameters, MethodMetadata methodMetadata)
+        public static void ValidateParametersAndThrow(object[] parameters, MethodMetadata methodMetadata)
         {
             var validationResults = ValidateParameters(parameters, methodMetadata).ToArray();
             

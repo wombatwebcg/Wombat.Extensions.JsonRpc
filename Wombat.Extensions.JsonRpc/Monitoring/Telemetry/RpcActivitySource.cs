@@ -123,7 +123,7 @@ namespace Wombat.Extensions.JsonRpc.Monitoring.Telemetry
                 activity.SetTag(Tags.RpcMethod, methodName);
                 activity.SetTag(Tags.RpcServerName, Environment.MachineName);
                 activity.SetTag(Tags.RpcServerVersion, ActivitySourceVersion);
-                activity.SetTag(Tags.SystemProcessId, Environment.ProcessId);
+                activity.SetTag(Tags.SystemProcessId, Process.GetCurrentProcess().Id);
                 activity.SetTag(Tags.SystemManagedThreadId, Environment.CurrentManagedThreadId);
                 
                 if (!string.IsNullOrEmpty(clientId))

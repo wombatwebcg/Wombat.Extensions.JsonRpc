@@ -19,24 +19,26 @@ namespace Wombat.Extensions.JsonRpc.CodeGen
         private readonly OpenApiDocumentGenerator _openApiGenerator;
         private readonly MarkdownDocumentGenerator _markdownGenerator;
         private readonly IRpcMetadataProvider _metadataProvider;
+        private readonly ILoggerFactory _loggerFactory;
         private readonly ILogger<RpcCodeGenerator> _logger;
 
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="metadataProvider">元数据提供程序</param>
-        /// <param name="logger">日志记录器</param>
+        /// <param name="loggerFactory">日志工厂</param>
         public RpcCodeGenerator(
             IRpcMetadataProvider metadataProvider = null,
-            ILogger<RpcCodeGenerator> logger = null)
+            ILoggerFactory loggerFactory = null)
         {
             _metadataProvider = metadataProvider ?? new DefaultRpcMetadataProvider();
-            _logger = logger;
+            _loggerFactory = loggerFactory;
+            _logger = loggerFactory?.CreateLogger<RpcCodeGenerator>();
             
-            _csharpGenerator = new CSharpClientGenerator(logger?.CreateLogger<CSharpClientGenerator>());
-            _typeScriptGenerator = new TypeScriptClientGenerator(logger?.CreateLogger<TypeScriptClientGenerator>());
-            _openApiGenerator = new OpenApiDocumentGenerator(logger?.CreateLogger<OpenApiDocumentGenerator>());
-            _markdownGenerator = new MarkdownDocumentGenerator(logger?.CreateLogger<MarkdownDocumentGenerator>());
+            _csharpGenerator = new CSharpClientGenerator(loggerFactory?.CreateLogger<CSharpClientGenerator>());
+            _typeScriptGenerator = new TypeScriptClientGenerator(loggerFactory?.CreateLogger<TypeScriptClientGenerator>());
+            _openApiGenerator = new OpenApiDocumentGenerator(loggerFactory?.CreateLogger<OpenApiDocumentGenerator>());
+            _markdownGenerator = new MarkdownDocumentGenerator(loggerFactory?.CreateLogger<MarkdownDocumentGenerator>());
         }
 
         /// <summary>

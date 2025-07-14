@@ -234,7 +234,7 @@ namespace Wombat.Extensions.JsonRpc.Resilience.Retry
                     var baseExponentialDelay = _options.BaseDelay.TotalMilliseconds * Math.Pow(_options.BackoffMultiplier, attemptNumber - 1);
                     if (_options.EnableJitter)
                     {
-                        var jitter = Random.Shared.NextDouble() * 0.1 + 0.9; // 90%-100%
+                        var jitter = new Random().NextDouble() * 0.1 + 0.9; // 90%-100%
                         baseExponentialDelay *= jitter;
                     }
                     delay = TimeSpan.FromMilliseconds(baseExponentialDelay);
@@ -258,7 +258,7 @@ namespace Wombat.Extensions.JsonRpc.Resilience.Retry
             // 应用抖动（如果启用且不是ExponentialWithJitter策略）
             if (_options.EnableJitter && _options.Strategy != RetryStrategy.ExponentialWithJitter)
             {
-                var jitterMs = delay.TotalMilliseconds * (Random.Shared.NextDouble() * 0.2 - 0.1); // ±10%
+                var jitterMs = delay.TotalMilliseconds * (new Random().NextDouble() * 0.2 - 0.1); // ±10%
                 delay = TimeSpan.FromMilliseconds(Math.Max(0, delay.TotalMilliseconds + jitterMs));
             }
 

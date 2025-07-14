@@ -28,7 +28,7 @@ namespace Wombat.Extensions.JsonRpc.Resilience.Retry
             _retryPolicy = retryPolicy ?? CreateDefaultRetryPolicy();
         }
 
-        public override async Task InvokeAsync(RpcMiddlewareContext context, RpcMiddlewareDelegate next)
+        public override async Task InvokeAsync(RpcMiddlewareContext context, Func<Task> next)
         {
             if (context == null) throw new ArgumentNullException(nameof(context));
             if (next == null) throw new ArgumentNullException(nameof(next));
@@ -36,7 +36,7 @@ namespace Wombat.Extensions.JsonRpc.Resilience.Retry
             // 检查是否应该对这个方法启用重试
             if (!ShouldRetry(context))
             {
-                await next(context);
+                await next();
                 return;
             }
 
@@ -52,7 +52,7 @@ namespace Wombat.Extensions.JsonRpc.Resilience.Retry
 
                     _logger.LogDebug("执行RPC操作: {OperationName}", operationName);
                     
-                    await next(context);
+                    await next();
                     
                     // 检查执行结果
                     if (context.Exception != null)
@@ -150,7 +150,7 @@ namespace Wombat.Extensions.JsonRpc.Resilience.Retry
                 }
             };
 
-            return new RetryPolicy(retryOptions, _logger);
+            return new RetryPolicy(retryOptions, _logger as ILogger<RetryPolicy> ?? Microsoft.Extensions.Logging.Abstractions.NullLogger<RetryPolicy>.Instance);
         }
 
         protected override void Dispose(bool disposing)

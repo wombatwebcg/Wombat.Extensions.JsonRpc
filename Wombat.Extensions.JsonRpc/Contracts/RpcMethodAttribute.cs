@@ -11,7 +11,7 @@ namespace Wombat.Extensions.JsonRpc.Contracts
         /// <summary>
         /// RPC方法名称，如果为空则使用实际方法名
         /// </summary>
-        public string? MethodName { get; }
+        public string MethodName { get; } // 允许为null
 
         /// <summary>
         /// 是否为通知类型（不需要返回值）
@@ -31,12 +31,12 @@ namespace Wombat.Extensions.JsonRpc.Contracts
         /// <summary>
         /// 方法描述
         /// </summary>
-        public string? Description { get; set; }
+        public string Description { get; set; } // 允许为null
 
         /// <summary>
         /// 方法版本，用于API版本控制
         /// </summary>
-        public string? Version { get; set; }
+        public string Version { get; set; } // 允许为null
 
         /// <summary>
         /// 是否启用参数验证
@@ -57,7 +57,7 @@ namespace Wombat.Extensions.JsonRpc.Contracts
         /// 构造函数
         /// </summary>
         /// <param name="methodName">RPC方法名称，如果为空则使用实际方法名</param>
-        public RpcMethodAttribute(string? methodName = null)
+        public RpcMethodAttribute(string methodName = null)
         {
             MethodName = methodName;
         }
@@ -72,17 +72,17 @@ namespace Wombat.Extensions.JsonRpc.Contracts
         /// <summary>
         /// 服务名称
         /// </summary>
-        public string? ServiceName { get; }
+        public string ServiceName { get; } // 允许为null
 
         /// <summary>
         /// 服务描述
         /// </summary>
-        public string? Description { get; set; }
+        public string Description { get; set; } // 允许为null
 
         /// <summary>
         /// 服务版本
         /// </summary>
-        public string? Version { get; set; }
+        public string Version { get; set; } // 允许为null
 
         /// <summary>
         /// 是否为单例服务
@@ -93,7 +93,7 @@ namespace Wombat.Extensions.JsonRpc.Contracts
         /// 构造函数
         /// </summary>
         /// <param name="serviceName">服务名称</param>
-        public RpcServiceAttribute(string? serviceName = null)
+        public RpcServiceAttribute(string serviceName = null)
         {
             ServiceName = serviceName;
         }

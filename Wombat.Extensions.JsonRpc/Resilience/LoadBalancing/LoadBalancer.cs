@@ -97,7 +97,10 @@ namespace Wombat.Extensions.JsonRpc.Resilience.LoadBalancing
                 // 更新端点指标
                 if (_endpointMetrics.TryGetValue(selectedEndpoint.Id, out var metrics))
                 {
-                    Interlocked.Increment(ref metrics.RequestCount);
+                    lock (metrics)
+                    {
+                        metrics.RequestCount++;
+                    }
                 }
 
                 _logger.LogDebug("选择端点: {Endpoint}, 算法: {Algorithm}", selectedEndpoint.Address, _options.Algorithm);
@@ -125,11 +128,11 @@ namespace Wombat.Extensions.JsonRpc.Resilience.LoadBalancing
                     
                     if (success)
                     {
-                        Interlocked.Increment(ref metrics.SuccessfulRequests);
+                        metrics.SuccessfulRequests++;
                     }
                     else
                     {
-                        Interlocked.Increment(ref metrics.FailedRequests);
+                        metrics.FailedRequests++;
                     }
 
                     // 更新平均响应时间
@@ -324,7 +327,7 @@ namespace Wombat.Extensions.JsonRpc.Resilience.LoadBalancing
     public class WeightedRoundRobinAlgorithm : ILoadBalancingAlgorithm
     {
         private readonly ILogger _logger;
-        private readonly ConcurrentDictionary<string, int> _currentWeights = new();
+        private readonly ConcurrentDictionary<string, int> _currentWeights = new ConcurrentDictionary<string, int>();
 
         public WeightedRoundRobinAlgorithm(ILogger logger)
         {
@@ -377,7 +380,7 @@ namespace Wombat.Extensions.JsonRpc.Resilience.LoadBalancing
             var endpointList = endpoints.ToList();
             if (!endpointList.Any()) return Task.FromResult<ServiceEndpoint>(null);
 
-            var index = Random.Shared.Next(endpointList.Count);
+            var index = new Random().Next(endpointList.Count);
             return Task.FromResult(endpointList[index]);
         }
     }
@@ -400,9 +403,9 @@ namespace Wombat.Extensions.JsonRpc.Resilience.LoadBalancing
             if (!endpointList.Any()) return Task.FromResult<ServiceEndpoint>(null);
 
             var totalWeight = endpointList.Sum(e => e.Weight);
-            if (totalWeight <= 0) return Task.FromResult(endpointList[Random.Shared.Next(endpointList.Count)]);
+            if (totalWeight <= 0) return Task.FromResult(endpointList[new Random().Next(endpointList.Count)]);
 
-            var randomValue = Random.Shared.Next(totalWeight);
+            var randomValue = new Random().Next(totalWeight);
             var currentWeight = 0;
 
             foreach (var endpoint in endpointList)
