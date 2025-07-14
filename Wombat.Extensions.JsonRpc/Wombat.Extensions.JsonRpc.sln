@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wombat.Extensions.JsonRpc", "Wombat.Extensions.JsonRpc.csproj", "{A35EF50F-0750-40B0-7A26-C0B4C393DD78}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A35EF50F-0750-40B0-7A26-C0B4C393DD78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A35EF50F-0750-40B0-7A26-C0B4C393DD78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A35EF50F-0750-40B0-7A26-C0B4C393DD78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A35EF50F-0750-40B0-7A26-C0B4C393DD78}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3BF261C8-48E7-47FF-AAB4-664D51DC5EDD}
+	EndGlobalSection
+EndGlobal
