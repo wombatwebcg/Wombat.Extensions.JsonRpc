@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using StreamJsonRpc;
 using Wombat.Extensions.JsonRpc.Transport;
+using System.Linq;
 
 namespace Wombat.Extensions.JsonRpc.Client
 {
@@ -250,12 +251,12 @@ namespace Wombat.Extensions.JsonRpc.Client
                 {
                     using var timeoutCts = new CancellationTokenSource(_options.RequestTimeout.Value);
                     using var combinedCts = CancellationTokenSource.CreateLinkedTokenSource(_cancellationTokenSource.Token, timeoutCts.Token);
-                    
-                    result = await _jsonRpc.InvokeAsync<T>(targetName, arguments, combinedCts.Token);
+                    // 直接用官方 API
+                    result = await _jsonRpc.InvokeWithCancellationAsync<T>(targetName, arguments, combinedCts.Token);
                 }
                 else
                 {
-                    result = await _jsonRpc.InvokeAsync<T>(targetName, arguments, _cancellationTokenSource.Token);
+                    result = await _jsonRpc.InvokeAsync<T>(targetName, arguments);
                 }
 
                 var duration = DateTime.UtcNow - startTime;
@@ -295,7 +296,8 @@ namespace Wombat.Extensions.JsonRpc.Client
 
                 _logger?.LogDebug("发送RPC通知: {Method}, 参数数量: {ArgCount}", targetName, arguments?.Length ?? 0);
 
-                await _jsonRpc.NotifyAsync(targetName, arguments, _cancellationTokenSource.Token);
+                // 直接用官方 API
+                await _jsonRpc.NotifyAsync(targetName, arguments);
 
                 _logger?.LogDebug("RPC通知发送成功: {Method}", targetName);
             }

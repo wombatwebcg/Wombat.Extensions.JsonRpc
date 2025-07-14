@@ -97,7 +97,7 @@ namespace Wombat.Extensions.JsonRpcClientTest
                 Console.WriteLine("🎉 所有计算方法测试通过！");
             }
             catch (Exception ex)
-            {
+        {
                 Console.WriteLine($"❌ 计算方法测试失败: {ex.Message}");
             }
         }

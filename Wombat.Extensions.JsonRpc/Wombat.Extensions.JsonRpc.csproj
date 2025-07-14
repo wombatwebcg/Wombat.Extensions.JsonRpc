@@ -61,6 +61,7 @@
 
 		<!-- 性能计数器支持 -->
 		<PackageReference Include="System.Diagnostics.PerformanceCounter" Version="8.0.0" />
+		<PackageReference Include="Wombat.Extensions.DataTypeExtensions" Version="1.0.13" />
 	</ItemGroup>
 
 </Project>

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using StreamJsonRpc;
+using Wombat.Extensions.DataTypeExtensions;
 using Wombat.Extensions.JsonRpc.Contracts;
 using Wombat.Extensions.JsonRpc.Validation;
 
@@ -157,7 +158,46 @@ namespace Wombat.Extensions.JsonRpc.Builder
             {
                 foreach (var methodTarget in registration.MethodTargets.Values)
                 {
-                    targets[methodTarget.MethodMetadata.MethodName] = methodTarget.TargetDelegate;
+                    try
+                    {
+                        var parameters = methodTarget.MethodInfo.GetParameters();
+                        var paramTypes = parameters
+                            .Where(p => p.ParameterType != typeof(System.Threading.CancellationToken))
+                            .Select(p => p.ParameterType)
+                            .ToList();
+                        Type delegateType;
+                        if (methodTarget.MethodInfo.ReturnType == typeof(void))
+                        {
+                            delegateType = System.Linq.Expressions.Expression.GetActionType(paramTypes.ToArray());
+                        }
+                        else
+                        {
+                            paramTypes.Add(methodTarget.MethodInfo.ReturnType);
+                            delegateType = System.Linq.Expressions.Expression.GetFuncType(paramTypes.ToArray());
+                        }
+                        // 调试输出
+                        Console.WriteLine($"注册方法: {methodTarget.MethodMetadata.MethodName}, 参数类型: {string.Join(", ", paramTypes.Select(t => t.Name))}, 返回类型: {methodTarget.MethodInfo.ReturnType.Name}, 委托类型: {delegateType}");
+                        foreach (var p in parameters) Console.WriteLine($"  MethodInfo参数: {p.Name} {p.ParameterType}");
+                        var del = methodTarget.MethodInfo.CreateDelegate(delegateType, methodTarget.ServiceInstance);
+
+                        // 新增详细类型打印
+                        Console.WriteLine($"  实际委托类型: {del.GetType().FullName}");
+                        var methodInfoParamTypes = parameters.Where(p => p.ParameterType != typeof(System.Threading.CancellationToken)).Select(p => p.ParameterType).ToArray();
+                        var delegateParamTypes = delegateType.GetMethod("Invoke").GetParameters().Select(p => p.ParameterType).ToArray();
+                        Console.WriteLine($"  MethodInfo参数类型数组: {string.Join(", ", methodInfoParamTypes.Select(t => t.FullName))}");
+                        Console.WriteLine($"  DelegateType参数类型数组: {string.Join(", ", delegateParamTypes.Select(t => t.FullName))}");
+                        // 注册原始方法名
+                        targets[methodTarget.MethodMetadata.MethodName] = del;
+
+                        // 计算参数数量（排除 CancellationToken）
+                        var paramCount = parameters.Count(p => p.ParameterType != typeof(System.Threading.CancellationToken));
+                        var methodNameWithArity = $"{methodTarget.MethodMetadata.MethodName}/{paramCount}";
+                        targets[methodNameWithArity] = del;
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger?.LogError(ex, $"注册方法 {methodTarget.MethodMetadata.MethodName} 委托时发生异常");
+                    }
                 }
             }
 
@@ -180,7 +220,6 @@ namespace Wombat.Extensions.JsonRpc.Builder
             {
                 jsonRpc.AddLocalRpcMethod(target.Key, (Delegate)target.Value);
             }
-
             _logger?.LogInformation("已将 {Count} 个RPC方法应用到JsonRpc实例", targets.Count);
         }
 
