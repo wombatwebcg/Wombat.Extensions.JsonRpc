@@ -1,6 +1,0 @@
-@Wombat.Extensions.JsonRpcServerTest_HostAddress = http://localhost:5198
-
-GET {{Wombat.Extensions.JsonRpcServerTest_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

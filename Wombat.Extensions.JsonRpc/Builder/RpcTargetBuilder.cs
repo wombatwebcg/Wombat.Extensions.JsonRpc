@@ -157,7 +157,7 @@ namespace Wombat.Extensions.JsonRpc.Builder
             {
                 foreach (var methodTarget in registration.MethodTargets.Values)
                 {
-                    targets[methodTarget.MethodName] = methodTarget.TargetDelegate;
+                    targets[methodTarget.MethodMetadata.MethodName] = methodTarget.TargetDelegate;
                 }
             }
 
@@ -264,10 +264,10 @@ namespace Wombat.Extensions.JsonRpc.Builder
         /// </summary>
         private async Task<RpcMethodTarget> CreateMethodTargetAsync(object serviceInstance, MethodMetadata methodMetadata)
         {
-            var method = serviceInstance.GetType().GetMethod(methodMetadata.MethodName);
+            var method = serviceInstance.GetType().GetMethod(methodMetadata.DisplayName);
             if (method == null)
             {
-                throw new InvalidOperationException($"方法 {methodMetadata.MethodName} 在服务实例中不存在");
+                throw new InvalidOperationException($"方法 {methodMetadata.DisplayName} 在服务实例中不存在");
             }
 
             Func<object[], Task<object>> targetDelegate;

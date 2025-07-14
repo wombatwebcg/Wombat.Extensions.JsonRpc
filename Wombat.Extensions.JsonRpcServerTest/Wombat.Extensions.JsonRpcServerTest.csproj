@@ -6,4 +6,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Wombat.Extensions.JsonRpc\Wombat.Extensions.JsonRpc.csproj" />
+    <ProjectReference Include="..\Wombat.Extensions.JsonRpcTestCommon\Wombat.Extensions.JsonRpcTestCommon.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 </Project>
