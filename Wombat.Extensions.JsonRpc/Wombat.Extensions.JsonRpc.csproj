@@ -2,59 +2,63 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <LangVersion>8.0</LangVersion>
-    <Nullable>enable</Nullable>
+    <LangVersion>7.3</LangVersion>
+    <Nullable>disable</Nullable>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>Wombat.Extensions.JsonRpc</PackageId>
     <PackageVersion>1.0.0-preview</PackageVersion>
-    <Authors>Wombat Team</Authors>
     <Description>高性能企业级StreamJsonRpc二次封装框架，支持基于特性的RPC接口暴露、批处理优化、代码生成等企业级特性</Description>
     <PackageTags>jsonrpc;rpc;streaming;performance;enterprise</PackageTags>
     <RepositoryType>git</RepositoryType>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
-  <ItemGroup>
-    <!-- 核心RPC依赖 -->
-    <PackageReference Include="StreamJsonRpc" Version="2.22.11" />
-    <PackageReference Include="System.IO.Pipelines" Version="8.0.0" />
-    <PackageReference Include="System.Threading.Channels" Version="8.0.0" />
-    
-    <!-- 序列化支持 -->
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    
-    <!-- 网络传输 -->
-    <PackageReference Include="System.Net.WebSockets" Version="4.3.0" />
-    <PackageReference Include="System.Net.WebSockets.Client" Version="4.3.2" />
-    
-    <!-- 性能优化 -->
-    <PackageReference Include="System.Collections.Immutable" Version="8.0.0" />
-    <PackageReference Include="System.Buffers" Version="4.6.0" />
-    <PackageReference Include="Microsoft.Extensions.ObjectPool" Version="8.0.8" />
-    
-    <!-- 动态代理和代码生成 -->
-    <PackageReference Include="Castle.Core" Version="5.1.1" />
-    <PackageReference Include="System.Reflection.Emit" Version="4.7.0" />
-    <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.7.0" />
-    
-    <!-- 日志和监控 -->
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
-    <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="8.0.1" />
-    
-    <!-- 配置和选项 -->
-    <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.2" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
-    
-    <!-- 数据验证 -->
-    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
-    
-    <!-- 托管服务 -->
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<!-- 核心RPC依赖 -->
+		<PackageReference Include="StreamJsonRpc" Version="2.22.11" />
+		<PackageReference Include="System.IO.Pipelines" Version="8.0.0" />
+		<PackageReference Include="System.Threading.Channels" Version="8.0.0" />
 
-  <ItemGroup>
-    <None Include="README.md" Pack="true" PackagePath="\" />
-  </ItemGroup>
+		<!-- 序列化支持 -->
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+
+		<!-- 网络传输 -->
+		<PackageReference Include="System.Net.WebSockets" Version="4.3.0" />
+		<PackageReference Include="System.Net.WebSockets.Client" Version="4.3.2" />
+
+		<!-- 性能优化 -->
+		<PackageReference Include="System.Collections.Immutable" Version="8.0.0" />
+		<PackageReference Include="System.Buffers" Version="4.6.0" />
+		<PackageReference Include="Microsoft.Extensions.ObjectPool" Version="8.0.8" />
+
+		<!-- 动态代理和代码生成 -->
+		<PackageReference Include="Castle.Core" Version="5.1.1" />
+		<PackageReference Include="System.Reflection.Emit" Version="4.7.0" />
+		<PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.7.0" />
+
+		<!-- 日志和监控 -->
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
+		<PackageReference Include="System.Diagnostics.DiagnosticSource" Version="8.0.1" />
+
+		<!-- 配置和选项 -->
+		<PackageReference Include="Microsoft.Extensions.Options" Version="8.0.2" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
+
+		<!-- 数据验证 -->
+		<PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+
+		<!-- 托管服务 -->
+		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0" />
+
+		<!-- JWT认证支持 -->
+		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.0.3" />
+
+		<!-- 健康检查支持 -->
+		<PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="8.0.0" />
+
+		<!-- 性能计数器支持 -->
+		<PackageReference Include="System.Diagnostics.PerformanceCounter" Version="8.0.0" />
+	</ItemGroup>
 
 </Project>

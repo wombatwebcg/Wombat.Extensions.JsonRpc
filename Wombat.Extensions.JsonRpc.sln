@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.34301.259
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35919.96 d17.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wombat.Extensions.JsonRpc", "Wombat.Extensions.JsonRpc\Wombat.Extensions.JsonRpc.csproj", "{6A80B5F6-E257-49F6-9491-C39D69839A4D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wombat.Extensions.JsonRpcServerTest", "Wombat.Extensions.JsonRpcServerTest\Wombat.Extensions.JsonRpcServerTest.csproj", "{728D4C63-DE74-4BEE-9513-6CDA6D9B5EDC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wombat.Extensions.JsonRpcClientTest", "Wombat.Extensions.JsonRpcClientTest\Wombat.Extensions.JsonRpcClientTest.csproj", "{DB6CE471-15B2-47E4-9B63-2070391ACE33}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{6A80B5F6-E257-49F6-9491-C39D69839A4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A80B5F6-E257-49F6-9491-C39D69839A4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A80B5F6-E257-49F6-9491-C39D69839A4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{728D4C63-DE74-4BEE-9513-6CDA6D9B5EDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{728D4C63-DE74-4BEE-9513-6CDA6D9B5EDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{728D4C63-DE74-4BEE-9513-6CDA6D9B5EDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{728D4C63-DE74-4BEE-9513-6CDA6D9B5EDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB6CE471-15B2-47E4-9B63-2070391ACE33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB6CE471-15B2-47E4-9B63-2070391ACE33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB6CE471-15B2-47E4-9B63-2070391ACE33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB6CE471-15B2-47E4-9B63-2070391ACE33}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
